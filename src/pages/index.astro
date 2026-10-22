@@ -12,18 +12,49 @@ const recent = (await getEntries()).slice(0, 5);
     <p class="en">{SITE.mission.en}</p>
     <p class="zh" lang="zh-Hant">
       {/* Keep each clause whole so a line never breaks inside a word. */}
-      {SITE.mission.zh.split(/(?<=，)/).map((part) => <span>{part}</span>)}
+      
     </p>
   </section>
 
   <section class="intro">
-    <p>
-      Hi, world! :)
-      I'm Ping, currently building my own website.
-      I write to think, get connected and (occasionally) inspire people.
+    <p>Hi hi hi! I’m Ping, and this is my little corner of the internet.</p>
 
-	
+    <p>I write to think, to connect with people, and hopefully to inspire someone.</p>
+
+    <p>
+      One day, I saw this quote on the Yale School of Medicine's website: <br />
+      <em>“To cure sometimes, to relieve often, to comfort always.”</em>  <br />
+      It's a reminder to medical students of the importance of the medical humanities. So touching.
+
+      
     </p>
+      So, for data scientists, I’d rewrite it as:
+    <p class="motto"><em>“To predict sometimes, to approximate often, to improve decisions always.”</em></p>
+
+     <p>
+      On this website, you'll find a collection of machine learning methods to help you expand your knowledge, understand the world a little better, and perhaps make better decisions.
+    </p>
+
+     <p>
+      However, do remember George Box’s famous words:<br />
+      <em>“All models are wrong, but some are useful.”</em>
+    </p>
+
+    <p>
+      Also don’t forget John von Neumann's:<br />
+      <em>“In mathematics you don’t understand things. You just get used to them.”</em>
+    </p>
+
+
+
+     <p>
+     :) 
+    </p>
+
+
+
+    
+
     <p><a href={url('/toolbox/')}>Open the toolbox</a></p>
   </section>
 
@@ -52,7 +83,7 @@ const recent = (await getEntries()).slice(0, 5);
   .en { text-wrap: balance; font-size: clamp(2rem, 5.5vw, 3.25rem); }
   .zh {
     margin-top: 0.75rem !important;
-    font-size: clamp(1.4rem, 3.6vw, 2.1rem);
+    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
     color: var(--muted);
     letter-spacing: 0.04em !important;
   }
