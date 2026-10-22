@@ -18,6 +18,7 @@ const path = Astro.url.pathname;
 const nav = [
   { label: 'Toolbox', href: url('/toolbox/') },
   { label: 'About', href: url('/about/') },
+  { label: 'Data', href: url('/data/') },
 ];
 const substack = SITE.links.find((l) => l.label === 'Substack');
 ---
@@ -40,7 +41,7 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
         {nav.map((item) => (
           <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
         ))}
-        {substack && <a href={substack.href}>Writing</a>}
+        
       </nav>
     </header>
 

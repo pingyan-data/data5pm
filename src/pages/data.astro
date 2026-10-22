@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+
+// Add your Buy Me a Coffee or Ko-fi link here when it’s ready.
+const coffee = '';
+const substack = SITE.links.find((l) => l.label === 'Substack');
+---
+<Base title="Data" description="Datasets I maintain in my spare time.">
+  <h1>Data</h1>
+  <div class="prose">
+    <p>Alongside the toolbox, I maintain a few datasets in my spare time.</p>
+
+    <div class="dataset">
+      <h2>Swedish job market</h2>
+      <p>
+        Job ads collected by web scraping, then cleaned and labelled by me, so they give an honest
+        record of which data jobs actually appear in Sweden and how that changes over time.
+      </p>
+    </div>
+
+    <div class="dataset">
+      <h2>Simulated population data</h2>
+      <p>
+        Starting from generalised statistics published by Swedish public services, I’m building a
+        simple simulation that estimates fine-grained data from coarse totals. It isn’t finished yet.
+      </p>
+    </div>
+
+    <p>
+      My plan is use these datasets for small hobby projects: deeper analysis and understanding of the society where I live.
+    </p>
+
+    <p>
+      The raw sources are free, but designing, cleaning, labelling and maintaining the data takes time. If any of it is useful to you, I’d really appreciate it if you
+      {coffee ? <a href={coffee}>bought me a coffee</a> : 'bought me a coffee'}. and also it keeps me motivated to keep the data going. My hope is that, a few years from now, this
+      becomes a trustworthy source of data that people rely on.
+    </p>
+
+    <p class="muted">Everything here is still a work in progress.</p>
+
+    {substack && (
+      <div class="writing">
+        <h2>I also write</h2>
+        <p>
+          In my spare time I also love writing. My blog,
+          <a href={substack.href}>stockholm5pm</a> on Substack, is where I write about everything big and small.
+        </p>
+      </div>
+    )}
+  </div>
+</Base>
+
+<style>
+  h1 { margin-bottom: 2rem; }
+  .prose { max-width: 36rem; }
+  .dataset { padding: 1rem 0; border-top: 1px solid var(--rule); }
+  .dataset:last-of-type { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  .dataset h2 { font-size: 1.125rem; margin-bottom: 0.35rem; }
+  .dataset p { margin: 0; color: var(--muted); }
+  .writing { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .writing h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+</style>
