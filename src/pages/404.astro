@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+---
+<Base title="Not found">
+  <h1>This page doesn’t exist</h1>
+  <p class="muted">It may have moved while the toolbox was being reorganised.</p>
+  <p><a href={url('/toolbox/')}>Go to the toolbox</a></p>
+</Base>

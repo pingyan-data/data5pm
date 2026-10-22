@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import EntryList from '../components/EntryList.astro';
+import { SITE } from '../config';
+import { getEntries } from '../lib/entries';
+import { url } from '../lib/url';
+
+const recent = (await getEntries()).slice(0, 5);
+---
+<Base>
+  <section class="mission" aria-label="Why this site exists">
+    <p class="en">{SITE.mission.en}</p>
+    <p class="zh" lang="zh-Hant">
+      {/* Keep each clause whole so a line never breaks inside a word. */}
+      {SITE.mission.zh.split(/(?<=，)/).map((part) => <span>{part}</span>)}
+    </p>
+  </section>
+
+  <section class="intro">
+    <p>
+      Hi, world! :)
+      I'm Ping, currently building my own website.
+      I write to think, get connected and (occasionally) inspire people.
+
+	
+    </p>
+    <p><a href={url('/toolbox/')}>Open the toolbox</a></p>
+  </section>
+
+  {recent.length > 0 && (
+    <section class="recent">
+      <h2>Recently added</h2>
+      <EntryList entries={recent} showDomain />
+    </section>
+  )}
+
+  <section class="elsewhere">
+    <h2>Elsewhere</h2>
+    <p>
+      {SITE.links.map((l, i) => (
+        <>
+          <a href={l.href}>{l.label}</a>{i < SITE.links.length - 1 && ', '}
+        </>
+      ))}
+    </p>
+  </section>
+</Base>
+
+<style>
+  .mission { margin-bottom: 3.5rem; }
+  .mission p { margin: 0; font-weight: 300; line-height: 1.2; letter-spacing: -0.02em; }
+  .en { text-wrap: balance; font-size: clamp(2rem, 5.5vw, 3.25rem); }
+  .zh {
+    margin-top: 0.75rem !important;
+    font-size: clamp(1.4rem, 3.6vw, 2.1rem);
+    color: var(--muted);
+    letter-spacing: 0.04em !important;
+  }
+  .zh span { display: inline-block; }
+  .intro { max-width: 36rem; margin-bottom: 4rem; }
+  .intro p:last-child { margin: 0; }
+  .recent, .elsewhere { margin-bottom: 3.5rem; }
+  h2 { font-size: 1rem; font-weight: 500; margin-bottom: 0.75rem; }
+</style>

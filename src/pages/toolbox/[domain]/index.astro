@@ -1,0 +1,59 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EntryList from '../../../components/EntryList.astro';
+import { DOMAINS, type Domain } from '../../../data/domains';
+import { getEntries } from '../../../lib/entries';
+import { url } from '../../../lib/url';
+
+export async function getStaticPaths() {
+  return DOMAINS.map((domain) => ({ params: { domain: domain.slug }, props: { domain } }));
+}
+
+const { domain } = Astro.props as { domain: Domain };
+const entries = await getEntries(domain.slug);
+const byCategory = (c: string) =>
+  entries.filter((e) => e.data.category === c).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const filled = domain.categories.filter((c) => byCategory(c).length > 0);
+const empty = domain.categories.filter((c) => byCategory(c).length === 0);
+const other = entries.filter((e) => !domain.categories.includes(e.data.category));
+---
+<Base title={domain.title} description={domain.intro}>
+  <p class="crumb"><a href={url('/toolbox/')}>Toolbox</a></p>
+  <h1>{domain.title}</h1>
+  <p class="lede muted">{domain.intro}</p>
+
+  {entries.length === 0 && (
+    <p>No methods here yet. Copy <code>src/content/toolbox/_template.md</code> into
+      <code>src/content/toolbox/{domain.slug}/</code> to add the first one.</p>
+  )}
+
+  {filled.map((c) => (
+    <section>
+      <h2>{c}</h2>
+      <EntryList entries={byCategory(c)} />
+    </section>
+  ))}
+
+  {other.length > 0 && (
+    <section>
+      <h2>Uncategorised</h2>
+      <EntryList entries={other} />
+    </section>
+  )}
+
+  {empty.length > 0 && (
+    <section class="todo">
+      <h2>Still to learn</h2>
+      <p>{empty.join(', ')}</p>
+    </section>
+  )}
+</Base>
+
+<style>
+  .crumb { margin-bottom: 0.75rem; font-size: 0.95rem; }
+  h1 { margin-bottom: 0.75rem; }
+  .lede { max-width: 36rem; margin-bottom: 3rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .todo h2, .todo p { color: var(--faint); }
+</style>

@@ -1,0 +1,86 @@
+/* data5pm — one family (IBM Plex), black and white, one blue. */
+:root {
+  --bg: #ffffff;
+  --ink: #161616;
+  --muted: #525252;
+  --faint: #8d8d8d;
+  --rule: #e0e0e0;
+  --wash: #f4f4f4;
+  --accent: #0f62fe;
+  --accent-hover: #0043ce;
+
+  --sans: 'IBM Plex Sans', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --measure: 42rem;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161616;
+    --ink: #f4f4f4;
+    --muted: #c6c6c6;
+    --faint: #8d8d8d;
+    --rule: #393939;
+    --wash: #262626;
+    --accent: #78a9ff;
+    --accent-hover: #a6c8ff;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-feature-settings: 'kern', 'liga';
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Type scale (1.25 ratio) */
+h1, h2, h3 { font-weight: 500; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 2.25rem; font-weight: 400; letter-spacing: -0.02em; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.125rem; }
+p { margin: 0 0 1em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 0.2em; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 1px; }
+
+:lang(zh-Hant) { letter-spacing: 0.02em; }
+
+code, pre { font-family: var(--mono); font-size: 0.9em; }
+:not(pre) > code { background: var(--wash); padding: 0.1em 0.35em; }
+pre {
+  background: var(--wash) !important;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+@media (prefers-color-scheme: dark) {
+  .astro-code, .astro-code span { color: var(--shiki-dark) !important; }
+}
+
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.25rem 0; }
+
+.muted { color: var(--muted); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}

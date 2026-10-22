@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Status from '../components/Status.astro';
+import { SITE } from '../config';
+---
+<Base title="About">
+  <h1>About</h1>
+  <div class="prose">
+    <p>
+      data5pm is my working toolbox. The name comes from the hour the day job ends and the real
+      learning starts. It’s the sibling of <a href={SITE.links[0].href}>stockholm5pm</a>, where I write.
+    </p>
+
+    <h2>The one rule</h2>
+    <p>{SITE.mission.en}</p>
+    <p lang="zh-Hant">{SITE.mission.zh}</p>
+    <p>
+      So every entry is written as a decision, not a definition. It has to answer four questions:
+      what problem am I solving, why this method, why not the obvious alternatives, and what has to be
+      true for it to work. If I can’t answer them yet, the entry stays a seedling.
+    </p>
+
+    <h2>How finished is each note</h2>
+    <ul class="legend">
+      <li><Status status="seedling" /> I’ve collected it and know roughly what it does.</li>
+      <li><Status status="growing" /> I understand it and have used it, but I’m still testing my reasoning.</li>
+      <li><Status status="evergreen" /> I can defend the choice to a sceptical colleague.</li>
+    </ul>
+  </div>
+</Base>
+
+<style>
+  h1 { margin-bottom: 2rem; }
+  .prose { max-width: 36rem; }
+  .prose h2 { font-size: 1.125rem; margin: 2.5rem 0 0.75rem; }
+  .legend { list-style: none; padding: 0; margin: 0; }
+  .legend li { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 0.5rem 0; border-top: 1px solid var(--rule); }
+</style>

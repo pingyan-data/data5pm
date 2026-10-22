@@ -1,0 +1,22 @@
+---
+// Maturity of a note: an empty, half and full circle.
+interface Props { status: 'seedling' | 'growing' | 'evergreen'; showLabel?: boolean }
+const { status, showLabel = true } = Astro.props;
+const labels = {
+  seedling: 'Seedling: just collected',
+  growing: 'Growing: understood, still being tested',
+  evergreen: 'Evergreen: I can defend this choice',
+};
+const short = { seedling: 'Seedling', growing: 'Growing', evergreen: 'Evergreen' };
+---
+<span class="status" title={labels[status]}>
+  <span class={`dot ${status}`} aria-hidden="true"></span>
+  {showLabel ? <span>{short[status]}</span> : <span class="visually-hidden">{short[status]}</span>}
+</span>
+
+<style>
+  .status { display: inline-flex; align-items: center; gap: 0.45em; color: var(--muted); font-size: 0.875rem; white-space: nowrap; }
+  .dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 1.5px solid var(--ink); flex: none; }
+  .growing { background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); }
+  .evergreen { background: var(--ink); }
+</style>

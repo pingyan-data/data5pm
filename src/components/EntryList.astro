@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Status from './Status.astro';
+import { url } from '../lib/url';
+
+interface Props { entries: CollectionEntry<'toolbox'>[]; showDomain?: boolean }
+const { entries, showDomain = false } = Astro.props;
+---
+<ul class="entries">
+  {entries.map((e) => (
+    <li>
+      <a class="title" href={url(`/toolbox/${e.id}/`)}>{e.data.title}</a>
+      <Status status={e.data.status} showLabel={false} />
+      <p class="summary">
+        {showDomain && <span class="cat">{e.data.category}. </span>}
+        {e.data.summary}
+      </p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .entries { list-style: none; margin: 0; padding: 0; }
+  li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  li:last-child { border-bottom: 1px solid var(--rule); }
+  .title { font-weight: 500; }
+  .summary { grid-column: 1 / -1; margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .cat { color: var(--faint); }
+</style>

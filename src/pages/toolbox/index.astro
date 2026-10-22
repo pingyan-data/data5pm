@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { DOMAINS } from '../../data/domains';
+import { getEntries, domainOf } from '../../lib/entries';
+import { url } from '../../lib/url';
+
+const entries = await getEntries();
+const count = (slug: string) => entries.filter((e) => domainOf(e) === slug).length;
+---
+<Base title="Toolbox">
+  <h1>Toolbox</h1>
+  <p class="lede muted">Methods I’ve learned, grouped by field. Each one says why I’d choose it.</p>
+
+  <ul class="domains">
+    {DOMAINS.map((d) => {
+      const n = count(d.slug);
+      return (
+        <li class={n === 0 ? 'empty' : ''}>
+          {n > 0
+            ? <h2><a href={url(`/toolbox/${d.slug}/`)}>{d.title}</a></h2>
+            : <h2>{d.title}</h2>}
+          <p>{d.intro}</p>
+          <p class="count">{n === 0 ? 'Not started' : n === 1 ? '1 method' : `${n} methods`}</p>
+        </li>
+      );
+    })}
+  </ul>
+</Base>
+
+<style>
+  h1 { margin-bottom: 0.75rem; }
+  .lede { margin-bottom: 3rem; }
+  .domains {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 0 2rem;
+  }
+  li { border-top: 1px solid var(--ink); padding: 1rem 0 2rem; }
+  li.empty { border-top-color: var(--rule); }
+  li.empty h2, li.empty p { color: var(--faint); }
+  h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+  li p { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.95rem; }
+  .count { font-size: 0.875rem; color: var(--faint) !important; }
+</style>

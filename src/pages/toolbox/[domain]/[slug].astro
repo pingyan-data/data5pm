@@ -1,0 +1,144 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Status from '../../../components/Status.astro';
+import { getDomain } from '../../../data/domains';
+import { getEntries, domainOf, type Entry } from '../../../lib/entries';
+import { url, formatDate } from '../../../lib/url';
+
+export async function getStaticPaths() {
+  const entries = await getEntries();
+  return entries.map((entry) => ({
+    params: { domain: domainOf(entry), slug: entry.id.split('/').slice(1).join('/') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: Entry };
+const { Content } = await render(entry);
+const d = entry.data;
+const domain = getDomain(domainOf(entry));
+
+const all = await getEntries();
+const ids = new Set(all.map((e) => e.id));
+// Entries that list this one as an alternative: "compared against" backlinks.
+const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === entry.id));
+---
+<Base title={d.title} description={d.summary}>
+  <article>
+    <p class="crumb">
+      <a href={url('/toolbox/')}>Toolbox</a> / <a href={url(`/toolbox/${domainOf(entry)}/`)}>{domain?.title ?? domainOf(entry)}</a>
+    </p>
+
+    <h1>{d.title}</h1>
+    <p class="summary">{d.summary}</p>
+
+    <dl class="meta">
+      <div><dt>Status</dt><dd><Status status={d.status} /></dd></div>
+      <div><dt>Category</dt><dd>{d.category}</dd></div>
+      <div><dt>{d.updated ? 'Updated' : 'Added'}</dt><dd><time datetime={(d.updated ?? d.created).toISOString()}>{formatDate(d.updated ?? d.created)}</time></dd></div>
+    </dl>
+
+    <section class="decision" aria-label="The decision">
+      <div class="q">
+        <h2>What problem am I solving?</h2>
+        <p>{d.problem}</p>
+      </div>
+      <div class="q">
+        <h2>Why this method?</h2>
+        <p>{d.why}</p>
+      </div>
+      {d.alternatives.length > 0 && (
+        <div class="q">
+          <h2>Why not something else?</h2>
+          <ul>
+            {d.alternatives.map((a) => (
+              <li>
+                <strong>{a.entry && ids.has(a.entry) ? <a href={url(`/toolbox/${a.entry}/`)}>{a.method}</a> : a.method}</strong>
+                <span>{a.whyNot}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {d.assumptions.length > 0 && (
+        <div class="q">
+          <h2>What has to be true?</h2>
+          <ul class="plain">
+            {d.assumptions.map((a) => <li>{a}</li>)}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <div class="notes">
+      <Content />
+    </div>
+
+    {backlinks.length > 0 && (
+      <section class="foot">
+        <h2>Compared against this in</h2>
+        <p>
+          {backlinks.map((b, i) => (
+            <><a href={url(`/toolbox/${b.id}/`)}>{b.data.title}</a>{i < backlinks.length - 1 && ', '}</>
+          ))}
+        </p>
+      </section>
+    )}
+
+    {d.references.length > 0 && (
+      <section class="foot">
+        <h2>References</h2>
+        <ol class="refs">
+          {d.references.map((r) => <li>{r.url ? <a href={r.url}>{r.title}</a> : r.title}</li>)}
+        </ol>
+      </section>
+    )}
+  </article>
+</Base>
+
+<style>
+  .crumb { margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--faint); }
+  h1 { margin-bottom: 0.75rem; }
+  .summary { font-size: 1.25rem; font-weight: 300; line-height: 1.45; color: var(--muted); margin-bottom: 2rem; }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 2.5rem; margin: 0 0 3.5rem; font-size: 0.875rem; }
+  .meta dt { color: var(--faint); }
+  .meta dd { margin: 0; color: var(--muted); }
+
+  /* The decision record: questions on the left, answers on the right. */
+  .decision { margin-bottom: 3.5rem; border-top: 2px solid var(--ink); }
+  .q {
+    display: grid;
+    grid-template-columns: minmax(10rem, 13rem) 1fr;
+    gap: 0.5rem 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .q h2 { font-size: 1rem; font-weight: 500; line-height: 1.5; }
+  .q p { margin: 0; }
+  .q ul { margin: 0; padding: 0; list-style: none; }
+  .q li { padding: 0 0 0.75rem; }
+  .q li:last-child { padding-bottom: 0; }
+  .q li strong { display: block; font-weight: 500; }
+  .q li span { color: var(--muted); }
+  .q .plain li { padding-left: 1.1rem; position: relative; }
+  .q .plain li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 1px; background: var(--ink); }
+  @media (max-width: 40rem) {
+    .q { grid-template-columns: 1fr; }
+  }
+
+  .notes :global(h2) { font-size: 1.25rem; margin: 2.5rem 0 0.75rem; }
+  .notes :global(h3) { margin: 2rem 0 0.5rem; }
+  .notes :global(ul), .notes :global(ol) { padding-left: 1.25rem; }
+  .notes :global(li) { margin-bottom: 0.35rem; }
+  .notes :global(pre) { margin: 1.25rem 0; }
+  .notes :global(blockquote) { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--accent); color: var(--muted); }
+  .notes :global(table) { border-collapse: collapse; display: block; overflow-x: auto; margin: 1.25rem 0; font-size: 0.95rem; }
+  .notes :global(th), .notes :global(td) { border-bottom: 1px solid var(--rule); padding: 0.4rem 1rem 0.4rem 0; text-align: left; }
+
+  .foot { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .foot h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .refs { padding-left: 1.25rem; margin: 0; font-size: 0.95rem; }
+  .refs li { margin-bottom: 0.35rem; }
+</style>
