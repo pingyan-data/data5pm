@@ -20,7 +20,6 @@ const nav = [
   { label: 'About', href: url('/about/') },
   { label: 'Data', href: url('/data/') },
 ];
-const substack = SITE.links.find((l) => l.label === 'Substack');
 ---
 <!doctype html>
 <html lang="en">
@@ -41,7 +40,6 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
         {nav.map((item) => (
           <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
         ))}
-        
       </nav>
     </header>
 
@@ -62,7 +60,7 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
   .site-header {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 0.75rem 1.5rem;
     padding-top: 2rem;
@@ -71,8 +69,9 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
   .wordmark {
     color: var(--ink);
     font-weight: 500;
-    font-size: 1.125rem;
-    letter-spacing: -0.01em;
+    font-size: clamp(2.75rem, 8vw, 1rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
   .wordmark:hover { color: var(--ink); text-decoration: none; }
   nav { display: flex; gap: 1.5rem; }
