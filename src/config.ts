@@ -11,6 +11,6 @@ export const SITE = {
   links: [
     { label: 'Substack', href: 'https://stockholm5pm.substack.com' },
     { label: 'GitHub', href: 'https://github.com/pingyan-data' },
-    // { label: 'LinkedIn', href: 'https://www.linkedin.com/in/your-handle' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ping-yan' },
   ],
 };
