@@ -2,60 +2,123 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config';
 
-// Add your Buy Me a Coffee or Ko-fi link here when it’s ready.
-const coffee = '';
+// Add the link to your data listing when it’s live.
+const store = '';
 const substack = SITE.links.find((l) => l.label === 'Substack');
 ---
-<Base title="Data" description="Datasets I maintain in my spare time.">
+<Base title="Data" description="Datasets I maintain in my spare time, and the data products I plan to build.">
   <h1>Data</h1>
   <div class="prose">
     <p>Alongside the toolbox, I maintain a few datasets in my spare time.</p>
 
-    <div class="dataset">
-      <h2>Swedish job market</h2>
-      <p>
-        Job ads collected by web scraping, then cleaned and labelled by me, so they give an honest
-        record of which data jobs actually appear in Sweden and how that changes over time.
-      </p>
+    <div class="list">
+      <div class="dataset">
+        <h2>Swedish job market</h2>
+        <p>
+          Job ads collected by web scraping, then cleaned and labelled by me, so they give an honest
+          record of which data jobs actually appear in Sweden and how that changes over time.
+        </p>
+      </div>
+
+      <div class="dataset">
+        <h2>Simulated population data</h2>
+        <p>
+          Starting from generalised statistics published by Swedish public services, I’m building a
+          simple simulation that estimates fine-grained data from coarse totals. It isn’t finished yet.
+        </p>
+      </div>
     </div>
 
-    <div class="dataset">
-      <h2>Simulated population data</h2>
-      <p>
-        Starting from generalised statistics published by Swedish public services, I’m building a
-        simple simulation that estimates fine-grained data from coarse totals. It isn’t finished yet.
+    
+
+    <section class="ideas">
+      <h2 class="section-title">Ideas I’m working towards</h2>
+      <p class="muted">
+        These are only ideas so far. I haven’t started building them, but I’d rather share them early.
       </p>
-    </div>
 
-    <p>
-      I use these datasets for small hobby projects: deeper analysis and a better understanding of the society I live in.
-    </p>
+      <div class="list">
+        <div class="dataset">
+          <h2>School Demand Forecast</h2>
+          <p>
+            A forecast of how many school-age children each area will have in the coming years, and
+            the demand for education that follows. Made for private schools and education providers.
+          </p>
+        </div>
 
-    <p>
-      The raw sources are free, but designing, continously scraping, cleaning, labelling and maintaining the data takes time. So the cleaned datasets will be available as paid data products on platforms like AWS Data Exchange. If you find them useful, buying them is the best way to support the work, and it keeps me motivated to keep the data going. My hope is that, a few years from now, this becomes a trustworthy source of data that people rely on.
-    </p>
+        <div class="dataset">
+          <h2>Small Business Growth Forecast</h2>
+          <p>
+            A forecast of how many small businesses will open and close in each industry and region,
+            so you can see where real growth is happening. Made for banks and B2B sales teams.
+          </p>
+        </div>
+
+        <div class="dataset">
+          <h2>Local Market Opportunity Index</h2>
+          <p>
+            A score for the market potential of each area, combining population, income, competition
+            and regional growth. Made for retailers and chains.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <p class="muted">Everything here is still a work in progress.</p>
 
-    {substack && (
+  
+
+
+    <p>
+      The raw data is public and free, but collecting, cleaning, labelling and maintaining it takes
+      real time and effort. Right now, an automated workflow scrapes new data every week, and I store
+      it locally.
+    </p>
+
+    <p>
+      I share small sample datasets for free on Kaggle, so anyone can explore them, train models,
+      make predictions, or just play with the data. For people who need larger, cleaned and regularly
+      updated datasets, I plan to offer paid data products on platforms like
+      {store ? <a href={store}>AWS Data Exchange</a> : 'AWS Data Exchange'}.
+    </p>
+
+    <p>
+      If the data is useful to you, buying a dataset is the best way to support this work. It also
+      keeps me motivated to keep it going.
+    </p>
+
+    <p>
+      I believe data will be one of the most valuable resources of the future. I hope that, over
+      time, these small personal projects grow into a trustworthy source of data that others can
+      learn from, build on and rely on.
+    </p>
+
+      {substack && (
       <div class="writing">
         <h2>I also write</h2>
         <p>
           In my spare time I also love writing. My blog,
-          <a href={substack.href}>stockholm5pm</a> on Substack, is where I write about everything big and small.
+          <a href={substack.href}>stockholm5pm</a> on Substack, is where I write about everything
+          big and small.
         </p>
       </div>
     )}
   </div>
+
 </Base>
 
 <style>
   h1 { margin-bottom: 2rem; }
   .prose { max-width: 36rem; }
+
+  .list { margin: 0 0 1.5rem; border-bottom: 1px solid var(--rule); }
   .dataset { padding: 1rem 0; border-top: 1px solid var(--rule); }
-  .dataset:last-of-type { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
   .dataset h2 { font-size: 1.125rem; margin-bottom: 0.35rem; }
   .dataset p { margin: 0; color: var(--muted); }
+
+  .ideas { margin: 3rem 0 1.5rem; }
+  .section-title { font-size: 1.25rem; margin-bottom: 0.35rem; }
+
   .writing { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
   .writing h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
 </style>

@@ -6,7 +6,7 @@ export const SITE = {
     'Ping’s toolbox of methods in statistics, machine learning and AI.',
   mission: {
     en: 'The Data Scientist’s Toolbox.',
-    zh: '因為:有一個小小的願望：對自己的每個方法選擇，都要能解釋為什麼。所以就開始寫作了。For every method I choose, I should be able to explain why.',
+    zh: 'To predict sometimes, to estimate often, to enlighten always. 偶尔预见，常常求证，始终启迪',
   },
   links: [
     { label: 'Substack', href: 'https://stockholm5pm.substack.com' },
