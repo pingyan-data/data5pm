@@ -34,33 +34,25 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
     <section class="ideas">
       <h2 class="section-title">Ideas I’m working towards</h2>
       <p class="muted">
-        These are only ideas so far. I haven’t started building them, but I’d rather share them early.
+        These are predictive data set that I haven’t finished building so far, but I’d rather share them early.
       </p>
 
       <div class="list">
         <div class="dataset">
-          <h2>School Demand Forecast</h2>
+          <h2>Demographic & Consumer Market Forecast</h2>
           <p>
-            A forecast of how many school-age children each area will have in the coming years, and
-            the demand for education that follows. Made for private schools and education providers.
+            A forecast of how the number of barnfamilj will change across Swedish municipalities in the coming years, and what these changes could mean for local housing, car sales, retail, education, and other consumer markets. Designed to help businesses identify future demand and market opportunities.
           </p>
         </div>
 
         <div class="dataset">
           <h2>Small Business Growth Forecast</h2>
           <p>
-            A forecast of how many small businesses will open and close in each industry and region,
-            so you can see where real growth is happening. Made for banks and B2B sales teams.
+            As AI reshapes the labour market, I believe the future of work may become increasingly decentralised, with smaller businesses and independent entrepreneurs playing a bigger role. I'm tracking newly registered businesses across Sweden to explore this shift and forecast how small business activity may evolve across industries and regions. The goal is to help businesses and decision-makers identify emerging trends and future market opportunities.
           </p>
         </div>
 
-        <div class="dataset">
-          <h2>Local Market Opportunity Index</h2>
-          <p>
-            A score for the market potential of each area, combining population, income, competition
-            and regional growth. Made for retailers and chains.
-          </p>
-        </div>
+        
       </div>
     </section>
 
@@ -76,15 +68,14 @@ const substack = SITE.links.find((l) => l.label === 'Substack');
     </p>
 
     <p>
-      I share small sample datasets for free on Kaggle, so anyone can explore them, train models,
-      make predictions, or just play with the data. For people who need larger, cleaned and regularly
-      updated datasets, I plan to offer paid data products on platforms like
-      {store ? <a href={store}>AWS Data Exchange</a> : 'AWS Data Exchange'}.
+      I share small sample datasets for free on Kaggle, so anyone can explore or just play with the data. For people who need larger, cleaned and regularly
+      updated datasets, I plan to offer paid data products on platforms like 
+      {store ? <a href={store}> AWS Data Exchange</a> : ' AWS Data Exchange'}. 
     </p>
 
     <p>
       If the data is useful to you, buying a dataset is the best way to support this work. It also
-      keeps me motivated to keep it going.
+      keeps me motivated to keep it going. 
     </p>
 
     <p>
