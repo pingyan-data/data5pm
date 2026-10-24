@@ -21,8 +21,13 @@ const domain = getDomain(domainOf(entry));
 
 const all = await getEntries();
 const ids = new Set(all.map((e) => e.id));
-// Entries that list this one as an alternative: "compared against" backlinks.
-const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === entry.id));
+// Links both ways: entries this one lists as related, plus entries that list this one.
+const relatedIds = new Set([
+  ...d.related.filter((id) => ids.has(id)),
+  ...all.filter((e) => e.data.related.includes(entry.id)).map((e) => e.id),
+]);
+relatedIds.delete(entry.id);
+const related = all.filter((e) => relatedIds.has(e.id));
 ---
 <Base title={d.title} description={d.summary}>
   <article>
@@ -34,11 +39,15 @@ const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === 
     <p class="summary">{d.summary}</p>
 
     <dl class="meta">
-      <div><dt>Status</dt><dd><Status status={d.status} /></dd></div>
+      {d.kind === 'story'
+        ? d.company && <div><dt>Company</dt><dd>{d.company}</dd></div>
+        : <div><dt>Status</dt><dd><Status status={d.status} /></dd></div>}
       <div><dt>Category</dt><dd>{d.category}</dd></div>
+      {d.source && <div><dt>Source</dt><dd><a href={d.source.url}>{d.source.title}</a></dd></div>}
       <div><dt>{d.updated ? 'Updated' : 'Added'}</dt><dd><time datetime={(d.updated ?? d.created).toISOString()}>{formatDate(d.updated ?? d.created)}</time></dd></div>
     </dl>
 
+    {d.kind === 'method' && (
     <section class="decision" aria-label="The decision">
       <div class="q">
         <h2>What problem am I solving?</h2>
@@ -48,17 +57,10 @@ const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === 
         <h2>Why this method?</h2>
         <p>{d.why}</p>
       </div>
-      {d.alternatives.length > 0 && (
+      {d.decides && (
         <div class="q">
-          <h2>Why not something else?</h2>
-          <ul>
-            {d.alternatives.map((a) => (
-              <li>
-                <strong>{a.entry && ids.has(a.entry) ? <a href={url(`/toolbox/${a.entry}/`)}>{a.method}</a> : a.method}</strong>
-                <span>{a.whyNot}</span>
-              </li>
-            ))}
-          </ul>
+          <h2>How does it decide?</h2>
+          <p>{d.decides}</p>
         </div>
       )}
       {d.assumptions.length > 0 && (
@@ -70,17 +72,18 @@ const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === 
         </div>
       )}
     </section>
+    )}
 
     <div class="notes">
       <Content />
     </div>
 
-    {backlinks.length > 0 && (
+    {related.length > 0 && (
       <section class="foot">
-        <h2>Compared against this in</h2>
+        <h2>Related</h2>
         <p>
-          {backlinks.map((b, i) => (
-            <><a href={url(`/toolbox/${b.id}/`)}>{b.data.title}</a>{i < backlinks.length - 1 && ', '}</>
+          {related.map((b, i) => (
+            <><a href={url(`/toolbox/${b.id}/`)}>{b.data.title}</a>{i < related.length - 1 && ', '}</>
           ))}
         </p>
       </section>
@@ -120,8 +123,6 @@ const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === 
   .q ul { margin: 0; padding: 0; list-style: none; }
   .q li { padding: 0 0 0.75rem; }
   .q li:last-child { padding-bottom: 0; }
-  .q li strong { display: block; font-weight: 500; }
-  .q li span { color: var(--muted); }
   .q .plain li { padding-left: 1.1rem; position: relative; }
   .q .plain li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 1px; background: var(--ink); }
   @media (max-width: 40rem) {
@@ -133,6 +134,7 @@ const backlinks = all.filter((e) => e.data.alternatives.some((a) => a.entry === 
   .notes :global(ul), .notes :global(ol) { padding-left: 1.25rem; }
   .notes :global(li) { margin-bottom: 0.35rem; }
   .notes :global(pre) { margin: 1.25rem 0; }
+  .notes :global(img) { display: block; max-width: 100%; height: auto; margin: 1.25rem 0; }
   .notes :global(blockquote) { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--accent); color: var(--muted); }
   .notes :global(table) { border-collapse: collapse; display: block; overflow-x: auto; margin: 1.25rem 0; font-size: 0.95rem; }
   .notes :global(th), .notes :global(td) { border-bottom: 1px solid var(--rule); padding: 0.4rem 1rem 0.4rem 0; text-align: left; }

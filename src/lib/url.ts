@@ -1,5 +1,5 @@
-// Prefixes internal paths with the site base ('/data5pm'), so links work on GitHub Pages
-// and keep working if the base later changes to '/'.
+// Prefixes internal paths with the site base (`base` in astro.config.mjs, currently '/')
+// and adds the trailing slash, so links keep working if the site ever moves to a sub-path.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export function url(path = '/'): string {

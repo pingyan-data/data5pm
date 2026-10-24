@@ -10,7 +10,7 @@ const { entries, showDomain = false } = Astro.props;
   {entries.map((e) => (
     <li>
       <a class="title" href={url(`/toolbox/${e.id}/`)}>{e.data.title}</a>
-      <Status status={e.data.status} showLabel={false} />
+      {e.data.kind !== 'story' && <Status status={e.data.status} showLabel={false} />}
       <p class="summary">
         {showDomain && <span class="cat">{e.data.category}. </span>}
         {e.data.summary}
