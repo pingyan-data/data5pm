@@ -23,11 +23,6 @@ const toolbox = defineCollection({
     assumptions: z.array(z.string()).default([]),
     related: z.array(z.string()).default([]).describe('ids of other entries, e.g. statistics/bayes-theorem'),
 
-    // Kept so older entries still build. No longer shown on the page.
-    alternatives: z
-      .array(z.object({ method: z.string(), whyNot: z.string(), entry: z.string().optional() }))
-      .default([]),
-
     // Stories only
     company: z.string().optional(),
     source: z.object({ title: z.string(), url: z.string() }).optional(),
