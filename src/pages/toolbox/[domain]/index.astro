@@ -12,7 +12,9 @@ export async function getStaticPaths() {
 const { domain } = Astro.props as { domain: Domain };
 const entries = await getEntries(domain.slug);
 const byCategory = (c: string) =>
-  entries.filter((e) => e.data.category === c).sort((a, b) => a.data.title.localeCompare(b.data.title));
+  entries
+    .filter((e) => e.data.category === c)
+    .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99) || a.data.title.localeCompare(b.data.title));
 const filled = domain.categories.filter((c) => byCategory(c).length > 0);
 const empty = domain.categories.filter((c) => byCategory(c).length === 0);
 const other = entries.filter((e) => !domain.categories.includes(e.data.category));
