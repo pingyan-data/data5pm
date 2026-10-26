@@ -30,7 +30,7 @@ tags: [recommendation, personalisation, bandits, llm, case-study]
 
 That sounds like a slogan, but Spotify treats it as an engineering rule. It decides which signals they collect (not just clicks), what the ranking optimises (not just click-through rate), how they evaluate (not just offline metrics), and how they balance the familiar with the new.
 
-Reading Spotify’s recent research papers, I found the system falls into four clear layers, each with its own question.
+Reading Spotify’s recent research papers, the system falls into four clear layers, each with its own question.
 
 | Layer | Question | Key idea |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ The first step is to compress each user into a compact vector, an **embedding**.
 
 **The result.** Embeddings can be refreshed almost in real time, teams no longer wait on each other, infrastructure costs drop, and A/B tests showed gains in listening share, discovery and search success.
 
-**What I take away.** This layer is the foundation. Get it right and every product above benefits; get it wrong and everything above has to be rebuilt.
+This layer is the foundation. Get it right and every product above benefits; get it wrong and everything above has to be rebuilt.
 
 ## Layer 2: Finding candidates among hundreds of millions of tracks
 
@@ -64,7 +64,7 @@ The second step is to pull out a few hundred to a few thousand candidates, fast.
 
 **The twist.** Spotify wanted one generative model to serve both search and recommendation. But search and recommendation had always used separate item embeddings, and simply merging them hurt performance. Their solution was to fine-tune one **bi-encoder** model on both tasks, then build a single shared Semantic ID space from it that works for both.
 
-**What I take away.** Semantic IDs are to recommender systems what tokens are to language models. They are the bridge that lets LLMs into recommendation.
+Semantic IDs are to recommender systems what tokens are to language models. They are the bridge that lets LLMs into recommendation.
 
 ## Layer 3: Putting candidates in order
 
@@ -114,4 +114,3 @@ Three trends run through all of this:
 
 Spotify’s recommender isn’t one model. It is a layered system, built on a shared understanding of each user, balancing many goals, sensitive to context, and now being reshaped by LLM agents.
 
-**The lesson I keep:** when asked “how would you improve this recommender?”, first ask *which layer* the problem is in.

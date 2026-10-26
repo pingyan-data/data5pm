@@ -62,7 +62,7 @@ Several agents pointed to the same thing: **stochastic weight averaging**, which
 
 **The result: recall up by more than 8%**, which Stripe estimates is worth tens of millions of dollars a year in prevented fraud for its businesses.
 
-## What I take away
+## Summaries 
 
 1. **Sampling choices hide assumptions.** Dropping the sampling looked like pure gain, but the sampling had been quietly protecting the model from bad labels. See [sampling methods](/toolbox/statistics/sampling-methods/).
 2. **Labels have an age.** In fraud, churn and credit risk, the outcome arrives late. Recent data needs special care, in training and in evaluation, or a model will look great at first and decline later.
