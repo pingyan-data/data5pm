@@ -6,7 +6,7 @@ export const SITE = {
     'Ping’s toolbox of methods in statistics, machine learning and AI.',
   mission: {
     en: 'The Data Scientist’s Toolbox.',
-    zh: 'To predict sometimes, to estimate often, to enlighten always. 偶尔预见，常常求证，始终启迪',
+    zh: 'To predict sometimes, to validate often, to inspire always. 偶尔预见，常常求证，始终启迪',
   },
   links: [
     { label: 'Substack', href: 'https://stockholm5pm.substack.com' },
