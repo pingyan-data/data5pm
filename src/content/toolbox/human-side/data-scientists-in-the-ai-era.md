@@ -6,7 +6,7 @@ category: Careers in AI
 status: seedling
 created: 2026-10-29
 order: 2
-draft: true
+draft: false
 related: [human-side/technical-workers-in-the-ai-era]
 tags: [career, data-science, ai, judgment]
 ---

@@ -6,7 +6,7 @@ category: Evaluation
 status: seedling
 created: 2026-10-29
 order: 1
-draft: true
+draft: false
 related: [system-design/netflix-llm-as-a-judge]
 references:
   - title: Dave (Data Lumina), crash course on LLM evaluations (YouTube video)
