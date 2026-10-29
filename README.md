@@ -31,6 +31,10 @@ The full writing guide (frontmatter rules, body headings, style) is in `.claude/
 
 Stories are case studies of how a company built something, not decision records. Put them in `src/content/toolbox/system-design/` with `kind: story`, and use `company` and `source` instead of `problem`, `why`, `decides` and `assumptions`. They show the company and source instead of a status.
 
+## Add a note
+
+Notes are essays and study notes, not decision records. Set `kind: note` and fill in only `title`, `summary`, `category`, `status` and `created` (plus `related`, `references` and `tags` if you need them). They show a status like methods but skip the decision box. Everything in `src/content/toolbox/human-side/` is a note.
+
 ## Status
 
 | Status | Meaning |
