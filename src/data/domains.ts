@@ -68,6 +68,13 @@ export const DOMAINS: Domain[] = [
     unit: ['story', 'stories'],
   },
   {
+    slug: 'human-side',
+    title: 'Human side',
+    intro: 'The people around the data: what players want, how teams work, and careers in AI.',
+    categories: ['Players and games', 'Management', 'Careers in AI'],
+    unit: ['note', 'notes'],
+  },
+  {
     slug: 'data-engineering',
     title: 'Data engineering',
     intro: 'Pipelines, modelling and the tools that move data around.',

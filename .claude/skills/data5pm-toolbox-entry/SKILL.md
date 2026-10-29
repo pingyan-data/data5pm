@@ -92,6 +92,25 @@ Tell it as a short story with simple headings: `## The challenge`, then what the
 everything in your own words: no copied sentences, no long quotes. Link to toolbox methods
 where a story uses one.
 
+## Notes
+
+Essays and study notes (everything in `src/content/toolbox/human-side/`, and notes on talks
+or videos in other domains) are **not** decision records either. Set `kind: note` and leave
+out `problem`, `why`, `decides` and `assumptions`:
+
+```yaml
+kind: note
+title: Gamer types                              # 2 to 5 words, no colon
+summary: One sentence, what the note covers.
+category: Players and games
+status: seedling
+created: 2026-10-29
+related: [human-side/data-scientists-in-the-ai-era]
+```
+
+Use short headings of a few words that fit the piece; there is no fixed order. Keep Ping’s
+own opinions, examples and caveats, and credit the people and videos she learned from.
+
 ## Writing style
 
 - Plain English. Short sentences. One idea per paragraph.

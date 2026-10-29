@@ -8,7 +8,7 @@ const toolbox = defineCollection({
   // Files starting with "_" (like _template.md) are ignored.
   loader: glob({ base: './src/content/toolbox', pattern: '**/[^_]*.md' }),
   schema: z.object({
-    kind: z.enum(['method', 'story']).default('method').describe('story = a company case study, told as a story'),
+    kind: z.enum(['method', 'story', 'note']).default('method').describe('story = a company case study, told as a story; note = an essay or study notes'),
     title: z.string(),
     summary: z.string().describe('One sentence: what it is.'),
     category: z.string(),
