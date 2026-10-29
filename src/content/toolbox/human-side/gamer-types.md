@@ -6,7 +6,7 @@ category: Players and games
 status: seedling
 created: 2026-10-29
 order: 1
-draft: true
+draft: false
 tags: [games, players, motivation, segmentation]
 ---
 

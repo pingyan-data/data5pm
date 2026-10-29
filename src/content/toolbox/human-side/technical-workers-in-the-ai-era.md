@@ -6,7 +6,7 @@ category: Careers in AI
 status: seedling
 created: 2026-10-29
 order: 1
-draft: true
+draft: false
 related: [human-side/data-scientists-in-the-ai-era]
 references:
   - title: Interview with Shunyu Yao, Google DeepMind (video interview)
